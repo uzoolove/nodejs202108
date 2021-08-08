@@ -3,10 +3,10 @@
 ## 개발환경 구축
 ### 프로그램 설치
 * 본인의 OS에 맞는 버전 다운로드 후 설치
-1. Nodejs 설치 [Download Pages](https://nodejs.org/en/download/){:target="_blank"}
-2. Visual Studio Code 설치 [Download Pages](https://code.visualstudio.com/download){:target="_blank"}
-3. Chrome 브라우저 설치 [Download Pages](https://www.google.com/chrome){:target="_blank"}
-4. MongoDB 설치 [Download Pages](https://www.mongodb.com/try/download/community){:target="_blank"}
+1. Nodejs 설치 [Download Pages](https://nodejs.org/en/download/){: target="_blank"}
+2. Visual Studio Code 설치 [Download Pages](https://code.visualstudio.com/download){: target="_blank"}
+3. Chrome 브라우저 설치 [Download Pages](https://www.google.com/chrome){: target="_blank"}
+4. MongoDB 설치 [Download Pages](https://www.mongodb.com/try/download/community){: target="_blank"}
     * C:\MongoDB 경로에 설치
 
 
