@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+var hello = require('./hellonode');
 
 const server = http.createServer(function(req, res){
   // res.writeHead(200);
@@ -25,7 +26,7 @@ const server = http.createServer(function(req, res){
   fs.readFile(filename, function(err, data){
     if(err){
       res.writeHead(404);
-      res.end('<h1>' + req.url + ' file not found!</h1>');
+      res.end('<h1>' + hello.a + hello.hi(req.url) + ' file not found!</h1>');
     }else{
       res.writeHead(200);
       res.end(data);
