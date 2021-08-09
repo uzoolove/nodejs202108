@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "main": "hellonode.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon helloserver"
   },
   "author": "",
   "license": "ISC",
   "keywords": [],
   "description": "",
   "dependencies": {
-    "connect": "^2.30.2",
     "node-static": "^0.7.11"
   }
 }
