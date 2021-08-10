@@ -29,6 +29,7 @@ const server = http.createServer(function(req, res){
       res.end('<h1>' + hello.a + hello.hi(req.url) + ' file not found!</h1>');
     }else{
       res.writeHead(200);
+      console.log(data.toString());
       res.end(data);
     }
   });
