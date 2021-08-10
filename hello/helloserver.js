@@ -26,7 +26,7 @@ const server = http.createServer(function(req, res){
   fs.readFile(filename, function(err, data){
     if(err){
       res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
-      res.end('<h1>' + hello.a + hello.hi(req.url) + ' file을 찾을 수 없음!</h1>');
+      res.end('<h1>' + hello.a + hello.hi(req.url) + ' file을 찾을 수 없음!!!!!</h1>');
     }else{
       res.writeHead(200);
       console.log(data.toString());
@@ -36,7 +36,7 @@ const server = http.createServer(function(req, res){
 
 });
 
-var port = 8000;
+var port = process.argv[2] || 8000;
 server.listen(port, function(){
   console.log('Start HTTP Server.', port);
 });
