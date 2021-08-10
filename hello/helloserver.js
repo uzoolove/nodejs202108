@@ -25,8 +25,8 @@ const server = http.createServer(function(req, res){
   // 비동기방식의 함수 호출
   fs.readFile(filename, function(err, data){
     if(err){
-      res.writeHead(404);
-      res.end('<h1>' + hello.a + hello.hi(req.url) + ' file not found!</h1>');
+      res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
+      res.end('<h1>' + hello.a + hello.hi(req.url) + ' file을 찾을 수 없음!</h1>');
     }else{
       res.writeHead(200);
       console.log(data.toString());
