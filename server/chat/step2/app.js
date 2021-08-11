@@ -1,14 +1,13 @@
 const fs = require('fs');
 const path = require('path');
-const http = require('http');
-// const mymime = require('./mymime');
 const mime = require('mime');
 const url = require('url');
 
 // 로그파일
 var logfile = fs.createWriteStream('log.txt', {flags: 'a'});
 
-var tcpServer = http.createServer(function(req, res){
+// 정적인 컨텐츠를 응답
+function staticServer(req, res){
   console.log(req.method, req.url, req.httpVersion);
   console.log(req.headers['user-agent']);
   if(req.url == '/'){
@@ -37,10 +36,8 @@ var tcpServer = http.createServer(function(req, res){
     logfile.write(`[${Date()}] ${res.statusCode} ${req.url}`);
     logfile.write(require('os').EOL);
   });
-});
-// 2. 포트 오픈 서버 구동
-tcpServer.listen(80, function(){
-  console.log('HTTP 서버 구동. 80');
-});
+}
+
+module.exports = staticServer;
 
 
