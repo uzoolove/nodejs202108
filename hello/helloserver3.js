@@ -16,10 +16,11 @@ function myListener(req, res){
   filestream.on('open', function(){
     res.writeHead(200);
   });
-  filestream.on('data', function(data){
-    console.log(data.length/1024 + 'KB');
-    res.write(data);
-  });
+  filestream.pipe(res);
+  // filestream.on('data', function(data){
+  //   console.log(data.length/1024 + 'KB');
+  //   res.write(data);
+  // });
   filestream.on('close', function(){
     res.end();
   });
