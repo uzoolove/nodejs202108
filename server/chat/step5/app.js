@@ -24,11 +24,14 @@ const connect = require('connect');
 const path = require('path');
 const static = require('./middleware/static');
 const logger = require('./middleware/logger');
+const indexRouter = require('./routes/index');
 
 var app = connect();
 
 app.use(static(path.join(__dirname, 'public')));
 app.use(logger());
+
+app.use(indexRouter);
 
 // 404 에러 처리 미들웨어
 app.use(function(req, res, next){
