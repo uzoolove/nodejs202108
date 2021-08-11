@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const net = require('net');
 // 1. net.Server 생성
 // var tcpServer = new net.Server();
@@ -13,6 +15,25 @@ var tcpServer = net.createServer(function(socket){
     var req = parseRequest(data.toString());
     console.log(req.method, req.url, req.httpVersion);
     console.log(req.headers['user-agent']);
+
+    if(req.url == '/'){
+      req.url = '/index.html';
+    }
+
+    var filename = path.join(__dirname, req.url);
+    fs.readFile(filename, function(err, data){
+      if(err){
+        socket.write('HTTP/1.1 404 Not found\n');
+        socket.write('Content-Type: text/html;charset=utf-8\n');
+        socket.write('\n');
+        socket.end(`<h1>${req.url} 파일을 찾을 수 없습니다.</h1>`);
+      }else{
+        socket.write('HTTP/1.1 200 OK\n');
+        socket.write('Content-Type: text/html;charset=utf-8\n');
+        socket.write('\n');
+        socket.end(data);
+      }
+    });
   });
 });
 
@@ -42,6 +63,6 @@ function parseRequest(data){
 }
 
 // 2. 포트 오픈 서버 구동
-tcpServer.listen(8100, function(){
-  console.log('TCP 서버 구동. 8100');
+tcpServer.listen(80, function(){
+  console.log('HTTP 서버 구동. 80');
 });
