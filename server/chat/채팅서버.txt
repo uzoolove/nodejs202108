@@ -11,4 +11,5 @@ step3{
   - middleware/static.js: static 자원 응답
   - middleware/logger.js: 로깅
   - app.js: 미들웨어 관리
+  - public: 정적인 컨텐츠 저장
 }
