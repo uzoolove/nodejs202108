@@ -1,22 +1,7 @@
-var mime = {
-  'html': 'text/html',
-  'svg': 'image/svg+xml',
-  'jpg': 'image/jpeg',
-  'png': 'image/png',
-  'gif': 'image/gif',
-  'css': 'text/css',
-  'js': 'application/javascript'
-  // ......
-};
-
-function getMimeType(url){
-  var extname = path.extname(url).substring(1);
-  return mime[extname];
-}
-
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
+const mymime = require('./mymime');
 
 var tcpServer = http.createServer(function(req, res){
   console.log(req.method, req.url, req.httpVersion);
