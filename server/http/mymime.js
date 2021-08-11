@@ -1,3 +1,4 @@
+const path = require('path');
 var mime = {
   'html': 'text/html',
   'svg': 'image/svg+xml',

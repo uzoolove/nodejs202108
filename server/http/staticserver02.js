@@ -11,7 +11,7 @@ var tcpServer = http.createServer(function(req, res){
   }
   var filename = path.join(__dirname, req.url);
 
-  var mimeType = getMimeType(req.url);
+  var mimeType = mymime.getMimeType(req.url);
 
   fs.readFile(filename, function(err, data){
     if(err){
