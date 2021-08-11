@@ -1,8 +1,9 @@
 const net = require('net');
 var target = {
   // host: 'localhost',
-  host: '106.246.114.67',
-  port: 8100
+  // host: '106.246.114.67',
+  host: 'google.com',
+  port: 80
 };
 
 // 1. new.Socket 생성
@@ -13,6 +14,7 @@ var socket = net.createConnection(target.port, target.host, function(){
   console.log(`서버 접속. ${target.host}:${target.port}`);
   // 3. 서버와 메세지 송수신
   // socket.write('hello');
+  socket.write('GET / HTTP/1.1\n\n');
 });
 socket.on('data', function(data){
   console.log('서버로부터 수신한 메세지. ' + data);

@@ -12,6 +12,7 @@ function myListener(req, res){
   var filestream = fs.createReadStream(filename);
   filestream.on('error', function(){
     res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
+    res.end('<h1>' + req.url + ' file을 찾을 수 없음!!!!!</h1>');
   });
   filestream.on('open', function(){
     res.writeHead(200);
