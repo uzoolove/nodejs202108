@@ -4,10 +4,10 @@ function logger(options){
   if(options && options.target == 'file'){
     var logfile = fs.createWriteStream(options.filename || 'chat.log', {flags: 'a'});
   }
-  return function(msg){
+  return function(req, res){
     if(logfile){
       logfile.write(`[${Date()}] ${res.statusCode} ${req.url}`);
-      logfile.write(require('os').EOL);
+      logfile.write(os.EOL);
     }else{
       console.log(`[${Date()}] ${res.statusCode} ${req.url}`);
     }
