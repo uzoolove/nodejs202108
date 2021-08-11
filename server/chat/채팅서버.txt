@@ -1,0 +1,14 @@
+step1{
+  - server/http/staticserver03.js 복사해서 시작
+  - staticserverjs: http 서버 구동, static 자원 응답, 로깅
+  - url 파싱해서 경로와 querystring 분리
+}
+step2{
+  - bin/www.js: http 서버 구동
+  - app.js: static 자원 응답, 로깅
+}
+step3{
+  - middleware/static.js: static 자원 응답
+  - middleware/logger.js: 로깅
+  - app.js: 미들웨어 관리
+}
