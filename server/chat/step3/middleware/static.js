@@ -4,7 +4,7 @@ const mime = require('mime');
 const url = require('url');
 
 // 정적인 컨텐츠를 응답
-function staticServer(req, res){
+function staticServer(req, res, next){
   if(req.url == '/'){
     req.url = '/index.html';
   }
@@ -26,8 +26,7 @@ function staticServer(req, res){
       res.writeHead(200, {'Content-Type': mimeType + ';charset=utf-8'});
       fs.createReadStream(filename).pipe(res);
     }
-
-
+    next();
   });
 }
 
