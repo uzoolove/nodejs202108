@@ -4,13 +4,14 @@ function logger(options){
   if(options && options.target == 'file'){
     var logfile = fs.createWriteStream(options.filename || 'chat.log', {flags: 'a'});
   }
-  return function(req, res){
+  return function(req, res, next){
     if(logfile){
       logfile.write(`[${Date()}] ${res.statusCode} ${req.url}`);
       logfile.write(os.EOL);
     }else{
       console.log(`[${Date()}] ${res.statusCode} ${req.url}`);
     }
+    next();
   };
 }
 module.exports = logger;

@@ -20,18 +20,24 @@
  *  - connect@3: 미들웨어 관리
  */
 
+const connect = require('connect');
 const path = require('path');
-const static = require('./middleware/static')(path.join(__dirname, 'public'));
-const logger = require('./middleware/logger')({target: 'file'});
+const static = require('./middleware/static');
+const logger = require('./middleware/logger');
 
-// request listener
-function app(req, res){
-  console.log(req.url);
-  // 콜백패턴: 비동기 함수의 실행 순서를 지정하기 위해서
-  static(req, res, function(){
-    logger(req, res);
-  });
-}
+var app = connect();
+
+app.use(static(path.join(__dirname, 'public')));
+app.use(logger());
+
+// 404 에러 처리 미들웨어
+app.use(function(req, res, next){
+  // connect 미들웨어
+  // 1. req, res, next를 인자값으로 받는다.
+  // 2. res 응답을 끝내거나 next를 호출한다.
+  res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
+  res.end(`<h1>${req.url} 파일을 찾을 수 없습니다.</h1>`);
+});
 
 module.exports = app;
 
