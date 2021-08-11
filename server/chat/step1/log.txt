@@ -1,0 +1,7 @@
+[Wed Aug 11 2021 14:27:50 GMT+0900 (대한민국 표준시)] 404 /aslkdjasdf
+[Wed Aug 11 2021 14:27:55 GMT+0900 (대한민국 표준시)] 200 /index.html
+[Wed Aug 11 2021 14:27:55 GMT+0900 (대한민국 표준시)] 200 /img/favicon.ico
+[Wed Aug 11 2021 14:28:02 GMT+0900 (대한민국 표준시)] 404 /chat.html?username=asdfasdf
+[Wed Aug 11 2021 14:32:34 GMT+0900 (대한민국 표준시)] 404 /chat.html?username=asdfasdf
+[Wed Aug 11 2021 14:33:57 GMT+0900 (대한민국 표준시)] 200 /index.html
+[Wed Aug 11 2021 14:34:24 GMT+0900 (대한민국 표준시)] 404 /chat.html?username=asdfsadfasdf
