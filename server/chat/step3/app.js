@@ -3,8 +3,7 @@ const path = require('path');
 const mime = require('mime');
 const url = require('url');
 
-// 로그파일
-var logfile = fs.createWriteStream('log.txt', {flags: 'a'});
+
 
 // 정적인 컨텐츠를 응답
 function staticServer(req, res){
@@ -32,9 +31,7 @@ function staticServer(req, res){
       fs.createReadStream(filename).pipe(res);
     }
 
-    // 로깅 메세지 출력
-    logfile.write(`[${Date()}] ${res.statusCode} ${req.url}`);
-    logfile.write(require('os').EOL);
+
   });
 }
 
