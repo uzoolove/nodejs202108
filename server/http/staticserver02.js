@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
-const mymime = require('./mymime');
+// const mymime = require('./mymime');
+const mime = require('mime');
 
 var tcpServer = http.createServer(function(req, res){
   console.log(req.method, req.url, req.httpVersion);
@@ -11,7 +12,7 @@ var tcpServer = http.createServer(function(req, res){
   }
   var filename = path.join(__dirname, req.url);
 
-  var mimeType = mymime.getMimeType(req.url);
+  var mimeType = mime.getType(req.url);
 
   fs.readFile(filename, function(err, data){
     if(err){
