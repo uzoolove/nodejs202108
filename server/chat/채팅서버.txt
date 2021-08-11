@@ -13,3 +13,11 @@ step3{
   - app.js: 미들웨어 관리
   - public: 정적인 컨텐츠 저장
 }
+step4{
+  - connect 미들웨어 컨테이너 사용
+  - middleware를 connect에 등록
+}
+step5{
+  - routes/index.js: 동적인 자원 처리
+  - views: view 템플릿
+}
