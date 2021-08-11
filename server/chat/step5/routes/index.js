@@ -1,9 +1,19 @@
+const fs = require('fs');
+const path = require('path');
 var url = require('url');
+
+var views = path.join(__dirname, '..', 'views');
 
 // 채팅 화면으로 이동
 function chat(req, res){
-  res.writeHead(303, {Location: '/chat.html'});
-  res.end();
+  // res.writeHead(303, {Location: '/chat.html'});
+  // res.end();
+
+  var filename = path.join(views, 'chat.html');
+  fs.readFile(filename, function(err, data){
+    res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+    res.end(data);
+  });
 }
 
 // 로그인
