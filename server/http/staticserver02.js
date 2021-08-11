@@ -9,6 +9,11 @@ var mime = {
   // ......
 };
 
+function getMimeType(url){
+  var extname = path.extname(url).substring(1);
+  return mime[extname];
+}
+
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
@@ -20,12 +25,15 @@ var tcpServer = http.createServer(function(req, res){
     req.url = '/index.html';
   }
   var filename = path.join(__dirname, req.url);
+
+  var mimeType = getMimeType(req.url);
+
   fs.readFile(filename, function(err, data){
     if(err){
       res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
       res.end(`<h1>${req.url} 파일을 찾을 수 없습니다.</h1>`);
     }else{
-      res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+      res.writeHead(200, {'Content-Type': mimeType + ';charset=utf-8'});
       res.end(data);
     }
   });
