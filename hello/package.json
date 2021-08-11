@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "hellonode.js",
   "scripts": {
-    "start": "nodemon helloserver"
+    "start": "nodemon helloserver3"
   },
   "author": "",
   "license": "ISC",
