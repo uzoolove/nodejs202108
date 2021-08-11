@@ -8,16 +8,33 @@ function myListener(req, res){
   var filename = req.url.substring(1);
   filename = path.join(__dirname, filename);
 
-  fs.readFile(filename, function(err, data){
-    if(err){
-      res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
-      res.end('<h1>' + hello.a + hello.hi(req.url) + ' file을 찾을 수 없음!!!!!</h1>');
-    }else{
-      res.writeHead(200);
-      console.log(data.toString());
-      res.end(data);
-    }
+  // 스트림 방식
+  var filestream = fs.createReadStream(filename);
+  filestream.on('error', function(){
+    res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
   });
+  filestream.on('open', function(){
+    res.writeHead(200);
+  });
+  filestream.on('data', function(data){
+    console.log(data.length/1024 + 'KB');
+    res.write(data);
+  });
+  filestream.on('close', function(){
+    res.end();
+  });
+
+
+  // fs.readFile(filename, function(err, data){
+  //   if(err){
+  //     res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
+  //     res.end('<h1>' + hello.a + hello.hi(req.url) + ' file을 찾을 수 없음!!!!!</h1>');
+  //   }else{
+  //     res.writeHead(200);
+  //     console.log(data.length/1024 + 'KB');
+  //     res.end(data);
+  //   }
+  // });
 }
 // const server = http.createServer(myListener);
 const server = new http.Server();
