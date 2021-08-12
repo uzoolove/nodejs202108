@@ -20,7 +20,13 @@ function chat(req, res){
 
 // 로그인
 function login(req, res){
-
+  var nickname = url.parse(req.url, true).query.username;
+  if(nickname && nickname.trim() != ''){
+    res.writeHead(303, {Location: '/chat'});
+  }else{
+    res.writeHead(303, {Location: '/'});
+  }
+  res.end();
 }
 
 // 로그아웃
