@@ -9,9 +9,11 @@ function chat(req, res){
   // res.writeHead(303, {Location: '/chat.html'});
   // res.end();
 
+  var nickname = url.parse(req.url, true).query.username;
   var filename = path.join(views, 'chat.html');
   fs.readFile(filename, function(err, data){
     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+    data = data.toString().replace('<%=username%>', nickname);
     res.end(data);
   });
 }
