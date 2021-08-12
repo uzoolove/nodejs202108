@@ -9,19 +9,26 @@ function chat(req, res){
   // res.writeHead(303, {Location: '/chat.html'});
   // res.end();
 
-  var nickname = url.parse(req.url, true).query.username;
+  // var nickname = url.parse(req.url, true).query.username;
+  var nickname = req.session.nickname;
   var filename = path.join(views, 'chat.html');
-  fs.readFile(filename, function(err, data){
-    res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-    data = data.toString().replace('<%=username%>', nickname);
-    res.end(data);
-  });
+  if(nickname){
+    fs.readFile(filename, function(err, data){
+      res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+      data = data.toString().replace('<%=username%>', nickname);
+      res.end(data);
+    });
+  }else{
+    res.writeHead(303, {Location: '/'});
+    res.end();
+  }
 }
 
 // 로그인
 function login(req, res){
   var nickname = url.parse(req.url, true).query.username;
   if(nickname && nickname.trim() != ''){
+    req.session.nickname = nickname;
     res.writeHead(303, {Location: '/chat'});
   }else{
     res.writeHead(303, {Location: '/'});
@@ -31,7 +38,9 @@ function login(req, res){
 
 // 로그아웃
 function logout(req, res){
-
+  req.session.destroy();
+  res.writeHead(303, {Location: '/'});
+  res.end();
 }
 
 function router(req, res, next){

@@ -24,14 +24,23 @@ const fs = require('fs');
 const path = require('path');
 
 const connect = require('connect');
-const static = require('./middleware/static');
-const logger = require('./middleware/logger');
+const static = require('serve-static');
+const logger = require('morgan');
+const session = require('express-session');
 const indexRouter = require('./routes/index');
 
 var app = connect();
 
 app.use(static(path.join(__dirname, 'public')));
-app.use(logger());
+app.use(logger('combined'));
+
+app.use(session({ // req.session 속성에 세션객체 저장
+  cookie: {maxAge: 1000*60*60*2},
+  secret: 'sometxt',
+  rolling: true,  // 매 응답마다 쿠키 시작 초기화
+  resave: false,  // 세션값이 수정되지 않으면 서버에 다시 저장하지 않음
+  saveUninitialized: false  // 세션에 아무값도 저장되지 않으면 쿠키를 전송하지 않음
+}));
 
 app.use(indexRouter);
 
