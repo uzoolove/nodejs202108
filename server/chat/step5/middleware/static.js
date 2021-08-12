@@ -19,8 +19,9 @@ function staticServer(req, res, next){
     if(err){
       next();
     }else if(status.isDirectory()){
-      res.writeHead(403, {'Content-Type': 'text/html;charset=utf-8'});
-      res.end(`<h1>디렉토리 접근 권한이 없습니다.</h1>`);
+      var error = new Error(`디렉토리 접근 권한이 없습니다.`);
+      error.status = 403;
+      next(error);
     }else{
       res.writeHead(200, {'Content-Type': mimeType + ';charset=utf-8'});
       fs.createReadStream(filename).pipe(res);

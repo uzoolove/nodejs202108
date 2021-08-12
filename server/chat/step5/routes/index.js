@@ -35,7 +35,11 @@ function router(req, res, next){
       chat(req, res);
       break;
     case '/login':
+      login(req, res);
+      break;
     case '/logout':
+      logout(req, res);
+      break;
     default:
       next();
   }
