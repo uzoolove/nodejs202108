@@ -12,15 +12,16 @@ function chat(req, res, next){
 
   // var nickname = url.parse(req.url, true).query.username;
   var nickname = req.session.nickname;
-  var filename = path.join(views, 'chat.ejs');
-  ejs.renderFile(filename, {title: '채팅방', username: nickname}, function(err, data){
-    if(err){
-      next(err);
-    }else{
-      res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-      res.end(data);
-    }
-  });
+  res.render('chat', {title: '채팅방', username: nickname});
+  // var filename = path.join(views, 'chat.ejs');
+  // ejs.renderFile(filename, {title: '채팅방', username: nickname}, function(err, data){
+  //   if(err){
+  //     next(err);
+  //   }else{
+  //     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+  //     res.end(data);
+  //   }
+  // });
   // if(nickname){
   //   fs.readFile(filename, function(err, data){
   //     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});

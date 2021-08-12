@@ -28,6 +28,7 @@ const static = require('serve-static');
 const logger = require('morgan');
 const session = require('express-session');
 const nocache = require('nocache');
+const ejs = require('ejs');
 const indexRouter = require('./routes/index');
 
 var app = connect();
@@ -46,7 +47,7 @@ app.use(session({ // req.session 속성에 세션객체 저장
 app.use(nocache());
 
 // ejs를 기본 view enging으로 설정
-app.use(function(){
+app.use(function(req, res, next){
   var views = path.join(__dirname, 'views');
   res.render = function(filename, data){
     const filepath = path.join(views, filename + '.ejs');
