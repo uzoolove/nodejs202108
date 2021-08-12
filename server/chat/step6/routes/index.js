@@ -6,7 +6,7 @@ var ejs = require('ejs');
 var views = path.join(__dirname, '..', 'views');
 
 // 채팅 화면으로 이동
-function chat(req, res){
+function chat(req, res, next){
   // res.writeHead(303, {Location: '/chat.html'});
   // res.end();
 
@@ -57,7 +57,7 @@ function router(req, res, next){
   var pathname = url.parse(req.url).pathname;
   switch(pathname){
     case '/chat':
-      chat(req, res);
+      chat(req, res, next);
       break;
     case '/login':
       login(req, res);
