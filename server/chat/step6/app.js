@@ -27,6 +27,7 @@ const connect = require('connect');
 const static = require('serve-static');
 const logger = require('morgan');
 const session = require('express-session');
+const nocache = require('nocache');
 const indexRouter = require('./routes/index');
 
 var app = connect();
@@ -41,6 +42,25 @@ app.use(session({ // req.session 속성에 세션객체 저장
   resave: false,  // 세션값이 수정되지 않으면 서버에 다시 저장하지 않음
   saveUninitialized: false  // 세션에 아무값도 저장되지 않으면 쿠키를 전송하지 않음
 }));
+
+app.use(nocache());
+
+// ejs를 기본 view enging으로 설정
+app.use(function(){
+  var views = path.join(__dirname, 'views');
+  res.render = function(filename, data){
+    const filepath = path.join(views, filename + '.ejs');
+    ejs.renderFile(filepath, data, function(err, data){
+      if(err){
+        next(err);
+      }else{
+        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+        res.end(data);
+      }
+    });
+  };
+  next();
+});
 
 app.use(indexRouter);
 
@@ -57,13 +77,15 @@ app.use(function(req, res, next){
 // 에러 처리 전용 미들웨어
 app.use(function(error, req, res, next){
   var filename = path.join(__dirname, 'views', 'error.html');
-  fs.readFile(filename, function(err, data){
-    res.writeHead(error.status || 500, {'Content-Type': 'text/html;charset=utf-8'});
-    data = data.toString().replace('<%=message%>', error.message)
-                          .replace('<%=error.status%>', error.status)
-                          .replace('<%=error.stack%>', error.stack);
-    res.end(data);
-  });
+
+  res.render('error', {message: error.message, error: error});
+  // fs.readFile(filename, function(err, data){
+  //   res.writeHead(error.status || 500, {'Content-Type': 'text/html;charset=utf-8'});
+  //   data = data.toString().replace('<%=message%>', error.message)
+  //                         .replace('<%=error.status%>', error.status)
+  //                         .replace('<%=error.stack%>', error.stack);
+  //   res.end(data);
+  // });
 });
 
 module.exports = app;

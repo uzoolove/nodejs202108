@@ -3,7 +3,7 @@ const path = require('path');
 var url = require('url');
 var ejs = require('ejs');
 
-var views = path.join(__dirname, '..', 'views');
+
 
 // 채팅 화면으로 이동
 function chat(req, res, next){
