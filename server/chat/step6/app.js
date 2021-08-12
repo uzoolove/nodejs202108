@@ -50,10 +50,11 @@ app.use(nocache());
 app.use(function(req, res, next){
   var views = path.join(__dirname, 'views');
   res.locals = {};
+  
   res.render = function(filename, data){
     const filepath = path.join(views, filename + '.ejs');
-    ejs.renderFile(filepath, data, function(err, data){
-      data = data || res.locals;
+    data = data || res.locals;
+    ejs.renderFile(filepath, data, function(err, data){      
       if(err){
         next(err);
       }else{
