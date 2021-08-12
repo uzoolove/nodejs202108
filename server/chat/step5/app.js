@@ -20,8 +20,10 @@
  *  - connect@3: 미들웨어 관리
  */
 
-const connect = require('connect');
+const fs = require('fs');
 const path = require('path');
+
+const connect = require('connect');
 const static = require('./middleware/static');
 const logger = require('./middleware/logger');
 const indexRouter = require('./routes/index');
@@ -38,8 +40,21 @@ app.use(function(req, res, next){
   // connect 미들웨어
   // 1. req, res, next를 인자값으로 받는다.
   // 2. res 응답을 끝내거나 next를 호출한다.
-  res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
-  res.end(`<h1>${req.url} 파일을 찾을 수 없습니다.</h1>`);
+  var error = new Error(req.url + ' 파일을 찾을 수 없습니다.');
+  error.status = 404;
+  next(error);
+});
+
+// 에러 처리 전용 미들웨어
+app.use(function(error, req, res, next){
+  var filename = path.join(__dirname, 'views', 'error.html');
+  fs.readFile(filename, function(err, data){
+    res.writeHead(error.status || 500, {'Content-Type': 'text/html;charset=utf-8'});
+    data = data.toString().replace('<%=message%>', error.message)
+                          .replace('<%=error.status%>', error.status)
+                          .replace('<%=error.stack%>', error.stack);
+    res.end(data);
+  });
 });
 
 module.exports = app;
