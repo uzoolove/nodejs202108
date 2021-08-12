@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 var url = require('url');
+var ejs = require('ejs');
 
 var views = path.join(__dirname, '..', 'views');
 
@@ -11,17 +12,26 @@ function chat(req, res){
 
   // var nickname = url.parse(req.url, true).query.username;
   var nickname = req.session.nickname;
-  var filename = path.join(views, 'chat.html');
-  if(nickname){
-    fs.readFile(filename, function(err, data){
+  var filename = path.join(views, 'chat.ejs');
+  ejs.renderFile(filename, {title: '채팅방', username: nickname}, function(err, data){
+    if(err){
+      next(err);
+    }else{
       res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-      data = data.toString().replace('<%=username%>', nickname);
       res.end(data);
-    });
-  }else{
-    res.writeHead(303, {Location: '/'});
-    res.end();
-  }
+    }
+  });
+  // if(nickname){
+  //   fs.readFile(filename, function(err, data){
+  //     res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+  //     data = data.toString().replace('<%=username%>', nickname);
+  //     res.end(data);
+  //   });
+  // }else{
+  //   res.writeHead(303, {Location: '/'});
+  //   res.end();
+  // }
+
 }
 
 // 로그인
