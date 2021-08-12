@@ -49,13 +49,15 @@ app.use(nocache());
 // ejs를 기본 view enging으로 설정
 app.use(function(req, res, next){
   var views = path.join(__dirname, 'views');
+  res.locals = {};
   res.render = function(filename, data){
     const filepath = path.join(views, filename + '.ejs');
     ejs.renderFile(filepath, data, function(err, data){
+      data = data || res.locals;
       if(err){
         next(err);
       }else{
-        res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+        res.writeHead(res.statusCode, {'Content-Type': 'text/html;charset=utf-8'});
         res.end(data);
       }
     });
@@ -77,11 +79,16 @@ app.use(function(req, res, next){
 
 // 에러 처리 전용 미들웨어
 app.use(function(error, req, res, next){
-  var filename = path.join(__dirname, 'views', 'error.html');
+  res.locals.message = error.message;
+  res.locals.error = error;
 
-  res.render('error', {message: error.message, error: error});
+  res.statusCode = error.status || 500;
+  res.render('error');
+  // res.render('error', {message: error.message, error: error});
+
+  // var filename = path.join(__dirname, 'views', 'error.html');
   // fs.readFile(filename, function(err, data){
-  //   res.writeHead(error.status || 500, {'Content-Type': 'text/html;charset=utf-8'});
+  //   res.writeHead(error.status, {'Content-Type': 'text/html;charset=utf-8'});
   //   data = data.toString().replace('<%=message%>', error.message)
   //                         .replace('<%=error.status%>', error.status)
   //                         .replace('<%=error.stack%>', error.stack);
