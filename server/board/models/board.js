@@ -17,6 +17,30 @@ var b2 = {
 
 var boardList = [b1, b2];
 
+const { MongoClient } = require('mongodb')
+// or as an es module:
+// import { MongoClient } from 'mongodb'
+
+// Connection URL
+const url = 'mongodb://localhost:27017'
+const client = new MongoClient(url);
+
+// Database Name
+const dbName = 'boardDB';
+var db;
+
+// Use connect method to connect to the server
+client.connect(function(err){
+  if(err){
+    console.error(err);
+  }else{
+    console.log('Connected successfully to server');
+    db = client.db(dbName);
+    db.board = db.collection('board');
+    db.seq = db.collection('seq');
+  }
+});
+
 module.exports = {
 	// 게시물 목록 조회
 	list: function(callback){
