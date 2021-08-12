@@ -22,7 +22,7 @@ router.get('/board/:no', function(req, res, next) {
   res.render('board/view', { title: '내용 조회' });
 });
 // 삭제
-router.post('/board/:no', function(req, res, next) {
+router.delete('/board/:no', function(req, res, next) {
   res.redirect('/');
 });
 
