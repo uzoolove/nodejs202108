@@ -21,3 +21,11 @@ step5{
   - routes/index.js: 동적인 자원 처리
   - views: view 템플릿
 }
+step6{
+  - middleware 폴더 제거
+  - connect용 middleware 사용(morgan, serve-static)
+  - express-session: session 처리
+  - ejs: view engine
+  - nocache: 캐시 무효화
+  - socket.io: 웹소켓 채팅 기능 구현
+}
