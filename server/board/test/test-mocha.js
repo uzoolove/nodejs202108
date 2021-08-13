@@ -43,3 +43,41 @@ describe('# upper 함수 테스트', function(){
     });
   });
 });
+
+var newNo;
+describe.only('# 게시판 테스트', function(){
+
+  // 사전 작업 정의
+  before(function(done){
+    setTimeout(done, 1000);
+  });
+
+  // 사후 작업 정의
+  after(function(){
+    model.dbClose();
+  });
+
+  describe('등록', function(){
+    it('등록 요청', function(done){
+      model.create(article, function(no){
+        assert.strictEqual(typeof no, 'number');
+        newNo = no;
+        done();
+      });
+    });
+    it('등록한 게시물 조회', function(done){
+      model.show(newNo, function(newArticle){
+        assert.deepStrictEqual(newArticle, article);
+        done();
+      });
+    });
+  });
+  describe.skip('삭제', function(){
+    it('삭제 요청', function(done){
+
+    });
+    it('목록 조회', function(done){
+
+    });
+  });
+});
