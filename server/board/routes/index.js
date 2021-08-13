@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 // 목록 조회
 router.get('/board', function(req, res, next) {
   var page = parseInt(req.query.page);
+  console.log(page);
   model.list(page||1, function(list){
     res.render('board/list', { title: '게시물 목록', list });
   });

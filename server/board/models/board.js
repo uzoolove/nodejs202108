@@ -49,6 +49,7 @@ module.exports = {
   },
 	// 게시물 목록 조회
 	list: function(page, callback){
+    console.log(page);
 		// TODO: DB에서 목록 조회한 후 결과를 콜백으로 전달
     db.board.find({}, {content: 0}).skip((page-1)*10).limit(10).sort({_id: -1}).toArray(function(err, data){
       callback(data);
