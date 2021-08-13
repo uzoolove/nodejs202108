@@ -52,6 +52,14 @@ describe.only('# 게시판 테스트', function(){
     setTimeout(done, 1000);
   });
 
+  var oldList;
+  before(function(done){
+    model.list(function(result){
+      oldList = result;
+      done();
+    });
+  });
+
   // 사후 작업 정의
   after(function(){
     model.dbClose();
@@ -74,10 +82,12 @@ describe.only('# 게시판 테스트', function(){
   });
   describe('삭제', function(){
     it('삭제 요청', function(done){
-      model.remove(newNo);
+      model.remove(newNo, done);
     });
     it('목록 조회', function(done){
-
+      model.list(function(result){
+        assert.deepStrictEqual(result, oldList);
+      });
     });
   });
 });
