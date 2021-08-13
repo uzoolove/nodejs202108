@@ -3,8 +3,8 @@ const moment = require('moment');
 
 var pool = mysql.createPool({
   connectionLimit: 10,
-  host: '106.246.114.67',
-  port: 3506,
+  host: 'localhost',
+  port: 3306,
 	user: 'node',
 	password: 'Node1234',
 	database: 'board'
