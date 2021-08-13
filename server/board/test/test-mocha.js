@@ -87,6 +87,7 @@ describe.only('# 게시판 테스트', function(){
     it('목록 조회', function(done){
       model.list(function(result){
         assert.deepStrictEqual(result, oldList);
+        done();
       });
     });
   });
