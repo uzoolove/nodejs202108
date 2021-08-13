@@ -17,6 +17,7 @@ var b2 = {
 
 var boardList = [b1, b2];
 
+const moment = require('moment');
 const { MongoClient } = require('mongodb')
 // or as an es module:
 // import { MongoClient } from 'mongodb'
@@ -26,7 +27,7 @@ const url = 'mongodb://localhost:27017'
 const client = new MongoClient(url);
 
 // Database Name
-const dbName = 'boardDB2';
+const dbName = 'boardDB';
 var db;
 
 // Use connect method to connect to the server
@@ -65,12 +66,18 @@ module.exports = {
 	create: function(article, callback){
 		// TODO: DB에 article을 등록한 후 게시물 번호를 콜백으로 전달
     db.seq.findOneAndUpdate({}, {$inc: {index: 1}}, function(err, data){
-      
+      article._id = data.value.index;
+      article.view = 0;
+      article.regdate = moment().format('YYYY-MM-DD HH:mm:ss');
+      db.board.insertOne(article, function(err){
+        if(err) console.error(err);
+        callback(article._id);
+      });
     });
 	},
 	// 게시물 삭제
 	remove: function(no, callback){
 		// TODO: DB에서 no 게시물을 삭제한 후 콜백 호출
-    callback();
+    db.board.deleteOne({_id: no}, callback);
 	}
 };
