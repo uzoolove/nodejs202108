@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-// var model = require('../models/board');
-var model = require('../models/board_mysql');
+var model = require('../models/board');
+// var model = require('../models/board_mysql');
 
 // 메인페이지
 router.get('/', function(req, res, next) {

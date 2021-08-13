@@ -72,9 +72,9 @@ describe.only('# 게시판 테스트', function(){
       });
     });
   });
-  describe.skip('삭제', function(){
+  describe('삭제', function(){
     it('삭제 요청', function(done){
-
+      model.remove(newNo);
     });
     it('목록 조회', function(done){
 
